@@ -207,3 +207,29 @@ feature_cols = [
     'ANNUITY_INCOME_PERCENT',
     'CREDIT_TERM',
     'DAYS_EMPLOYED_PERCENT']
+
+# assemble features
+from pyspark.ml.feature import VectorAssembler
+from pyspark.ml.linalg import Vectors
+assembler = VectorAssembler().setInputCols(feature_cols).setOutputCol("features")
+output = assembler.transform(encoded).withColumn("label",  F.col("TARGET"))
+
+# train logistic regression model
+from pyspark.ml.classification import LogisticRegression
+
+lr = LogisticRegression(maxIter=10, regParam=0.3, elasticNetParam=0.8)
+lrModel = lr.fit(output)
+print("Coefficients: " + str(lrModel.coefficients))
+
+# get model accuracy
+
+from pyspark.mllib.evaluation import MulticlassMetrics
+
+transformed = lrModel.transform(output)
+results = transformed.select(['prediction', 'label'])
+results = results.withColumn("label", F.col("label").cast(DoubleType()))
+predictionAndLabels=results.rdd
+metrics = MulticlassMetrics(predictionAndLabels)
+cm=metrics.confusionMatrix().toArray()
+accuracy=(cm[0][0]+cm[1][1])/cm.sum()
+print("RandomForestClassifier: accuracy",accuracy)

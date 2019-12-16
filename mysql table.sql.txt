@@ -1,0 +1,19 @@
+create table application_train ( TARGET int, NAME_CONTRACT_TYPE
+varchar(100), CODE_GENDER varchar(100), FLAG_OWN_CAR varchar(100),
+FLAG_OWN_REALTY varchar(100), CNT_CHILDREN int, AMT_INCOME_TOTAL
+double, AMT_CREDIT double, AMT_ANNUITY double, NAME_INCOME_TYPE
+varchar(100), NAME_EDUCATION_TYPE varchar(100),
+NAME_FAMILY_STATUS varchar(100), NAME_HOUSING_TYPE varchar(100),
+DAYS_BIRTH int, DAYS_EMPLOYED int, FLAG_MOBIL int, FLAG_EMP_PHONE
+int, FLAG_WORK_PHONE int, FLAG_CONT_MOBILE int, FLAG_PHONE int,
+CNT_FAM_MEMBERS double, REGION_RATING_CLIENT int,
+REGION_RATING_CLIENT_W_CITY int, REG_REGION_NOT_LIVE_REGION int,
+REG_REGION_NOT_WORK_REGION int, ORGANIZATION_TYPE varchar(100),
+FLAG_DOCUMENT_2 int, FLAG_DOCUMENT_3 int, FLAG_DOCUMENT_4 int,
+FLAG_DOCUMENT_5 int, FLAG_DOCUMENT_6 int, FLAG_DOCUMENT_7 int,
+FLAG_DOCUMENT_8 int, FLAG_DOCUMENT_9 int, FLAG_DOCUMENT_10 int,
+FLAG_DOCUMENT_11 int, FLAG_DOCUMENT_12 int); 
+
+load data local infile 'd:/edureka/loanrepaymentproject/loandata.csv' into table 
+application_train
+fields terminated BY "," lines terminated BY "\n";

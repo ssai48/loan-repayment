@@ -1,0 +1,14 @@
+#list-databases
+sqoop list-databases 
+--connect jdbc:mysql://ipaddress/
+--username labuser 
+--password edureka
+
+#transfer data
+
+sqoop import 
+--connect jdbc:mysql://ipaddress/db_name 
+--username labuser -p
+--table application_train 
+-m 1 
+--target-dir /user/sivasai/loan_data
